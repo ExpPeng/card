@@ -1,0 +1,13 @@
+{
+  "employees": [
+    {
+      "id": 930,
+      "fullname": "Anon Example",
+      "position": "it",
+      "phone": "081-234-5678",
+      "lineId": "anon_line",
+      "email": "anon@example.com",
+      "avatar": "1750480219824-Capture.PNG"
+    }
+  ]
+}

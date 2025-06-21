@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>แก้ไขพนักงาน</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <h1>แก้ไขข้อมูลพนักงาน</h1>
+  <form id="editForm" enctype="multipart/form-data">
+    <input name="id" type="hidden" />
+    <label>ID: <span id="displayId"></span></label><br/>
+    <input name="fullname" placeholder="ชื่อนามสกุล" required /><br/>
+    <input name="position" placeholder="ตำแหน่ง" required /><br/>
+    <input name="phone" placeholder="เบอร์โทร" required /><br/>
+    <input name="lineId" placeholder="Line ID" required /><br/>
+    <input name="email" type="email" placeholder="Email" required /><br/>
+    <label>รูปปัจจุบัน:</label>
+    <input id="currentAvatar" type="text" readonly /><br/>
+          <br/>
+    <!-- ช่องอัปโหลดรูป avatar -->
+    <label>รูปประจำตัว:</label>
+    <input name="avatar" type="file" accept="image/*" />
+    <br/>
+
+    <button type="submit">บันทึก</button>
+    <button type="button" onclick="window.location='/'">ยกเลิก</button>
+  </form>
+
+
+
+
+  <script>
+  const apiUrl = '/api/employees';
+  const params = new URLSearchParams(location.search);
+  const id = parseInt(params.get('id'), 10);
+  const form = document.getElementById('editForm');
+  document.getElementById('displayId').textContent = id;
+  form.id.value = id;
+
+  // โหลดข้อมูลเดิมมาใส่ฟอร์ม
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(data => {
+        const emp = data.find(e => e.id === id);
+        if (!emp) return alert('ไม่พบพนักงาน');
+        // set ข้อมูล fields เดิม
+        ['fullname','position','phone','lineId','email'].forEach(f => {
+          form[f].value = emp[f];
+        });
+        // set ชื่อไฟล์รูปปัจจุบัน
+        document.getElementById('currentAvatar').value = emp.avatar || '';
+      });
+
+
+  // บันทึกการแก้ไข (พร้อมไฟล์ avatar)
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    fetch(`${apiUrl}/${id}`, {
+      method: 'PUT',
+      body: formData
+    })
+    .then(() => window.location = '/')
+    .catch(err => console.error(err));
+  });
+</script>
+
+</body>
+</html>
