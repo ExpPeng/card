@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>จัดการพนักงาน</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <h1>จัดการพนักงาน</h1>
+
+  <!-- Form เพิ่มพนักงานใหม่ -->
+  <section>
+    <h2>เพิ่มพนักงานใหม่</h2>
+    <form id="addForm" enctype="multipart/form-data">
+      <input name="id" type="number" placeholder="ID" required />
+      <input name="fullname" placeholder="ชื่อนามสกุล" required />
+      <input name="position" placeholder="ตำแหน่ง" required />
+      <input name="phone" placeholder="เบอร์โทร" required />
+      <input name="lineId" placeholder="Line ID" required />
+      <input name="email" type="email" placeholder="Email" required />
+      <!-- เพิ่มช่องอัปโหลดรูป -->
+      <input name="avatar" type="file" accept="image/*" />
+      <button type="submit">เพิ่ม</button>
+    </form>
+
+  </section>
+
+  <!-- ตารางรายชื่อพนักงาน -->
+  <section>
+  
+    <h2>รายชื่อพนักงาน</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th><th>ชื่อ</th><th>ตำแหน่ง</th><th>จัดการ</th>
+        </tr>
+      </thead>
+      <tbody id="employeeTable"></tbody>
+    </table>
+  </section>
+
+  <script src="/script.js"></script>
+</body>
+</html>
